@@ -1,57 +1,31 @@
-#include <iostream>
-#include <stack>
-#include <list>
-#include <vector>
-#include <utility>
+#include <bits/stdc++.h>
 
-using std::cout;
-using std::cin;
-
-//스택 안쓰고 반복문 + 인덱스 리턴하는 함수로 구현 가능할듯..
-//시간복잡도상 시간초과 날듯
-//
-//스택을 두개 사용하면 어떨까?
+using namespace std;
 
 int	main(void)
 {
 	std::ios::sync_with_stdio(false);
 	cin.tie(NULL);
+
 	int	N;
-	int	data;
-	std::stack<std::pair<int, int>>	tower; //왜 탭인데 위 아래 간격이 달라보이지?
-	std::stack<std::pair<int, int>>	stk;
-	std::vector<int>	ans;//둘다 탭인데 왜 정렬이 위 아래 다르지?(vector일 때였음)
+	int	height;
+	stack<pair<int, int>>	stk;; //왜 탭인데 위 아래 간격이 달라보이지?
+								   //list, stack끼리는 같은 간격으로 들여쓰기 됨. vector는 들여쓰기시 간격이 다르더라
 
 	cin >> N;
-	ans.resize(N);
-	fill(ans.begin(), ans.end(), 0);
-	for (int i = 0; i < N; i++)
+	for (int i = 1; i <= N; i++)
 	{
-		cin >> data;
-		tower.push(std::make_pair(data, i));
+		cin >> height;
+		//스택내 원소의 높이가 height보다  높을 때까지 계속 pop
+		//만약 스택이 비게 되면 현재 탑은 다른 탑에 닿지 않음
+		//스택에는 항상 오름차순으로 값이 쌓이게 됨
+		while (!stk.empty() && stk.top().first < height) //연산자 순서 중요함
+			stk.pop();
+		if (stk.empty())
+			cout << "0 ";
+		else
+			cout << stk.top().second << ' ';
+		stk.push(make_pair(height, i));
 	}
-	while (!tower.empty())
-	{
-		if (stk.empty() == true)
-		{
-			stk.push(tower.top());
-			tower.pop();
-		}
-		if (tower.empty() == false)
-		{
-			if (tower.top() > stk.top())
-			{
-				ans[stk.top().second] = tower.size();
-				stk.pop();
-			}
-			else
-			{
-				stk.push(tower.top());
-				tower.pop();
-			}
-		}
-	}
-	for (auto i : ans)
-		cout << i << ' ';
 	return (0);
 }
