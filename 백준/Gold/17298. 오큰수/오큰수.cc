@@ -4,9 +4,13 @@
 
 using namespace std;
 
-//바킹독 로직이 더 간단함
+//바킹독 로직이 더 간단한듯.. 내가 하려던 방식
+//뒤에서 부터 검사하면 굳이 pair를 만들 필요가 없음
 int	main(void)
 {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+
 	stack<pair<int,int>>	stk;
 	vector<int>	ans;
 	int	N;
