@@ -4,6 +4,7 @@
 
 using namespace std;
 
+//바킹독 로직이 더 간단함
 int	main(void)
 {
 	stack<pair<int,int>>	stk;
