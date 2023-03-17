@@ -11,7 +11,6 @@ int	_min = INT_MAX;
 
 void	solver(int depth, int sum)
 {
-	int	tmp;
 
 	if (depth == n - 1)
 	{
@@ -21,37 +20,28 @@ void	solver(int depth, int sum)
 			_min = sum;
 		return ;
 	}
-	tmp = sum;
 	if (freq_of_op[0] != n_op[0])
 	{
 		freq_of_op[0]++;
-		sum += arr[depth + 1];
-		solver(depth + 1, sum);
-		sum = tmp;
+		solver(depth + 1, sum + arr[depth + 1]);
 		freq_of_op[0]--;
 	}
 	if (freq_of_op[1] != n_op[1])
 	{
 		freq_of_op[1]++;
-		sum -= arr[depth + 1];
-		solver(depth + 1, sum);
-		sum = tmp;
+		solver(depth + 1, sum - arr[depth + 1]);
 		freq_of_op[1]--;
 	}
 	if (freq_of_op[2] != n_op[2])
 	{
 		freq_of_op[2]++;
-		sum *= arr[depth + 1];
-		solver(depth + 1, sum);
-		sum = tmp;
+		solver(depth + 1, sum * arr[depth+ 1]);
 		freq_of_op[2]--;
 	}
 	if (freq_of_op[3] != n_op[3])
 	{
 		freq_of_op[3]++;
-		sum /= arr[depth + 1];
-		solver(depth + 1, sum);
-		sum = tmp;
+		solver(depth + 1, sum / arr[depth + 1]);
 		freq_of_op[3]--;
 	}
 }
